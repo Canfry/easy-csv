@@ -4,13 +4,27 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title='Welcome to Astro.'>
   <main
-    class='flex flex-col justify-center items-center h-full max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto'
+    class='flex flex-col justify-center items-left h-full max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto'
   >
-    <h1 class='text-5xl mt-16 text-left text-slate-600'>
+    <h1 class='text-7xl max-md:text-5xl mt-16 text-slate-600'>
       Welcome to Easy<sapn class='text-orange-600 font-bold'>CSV</sapn>
     </h1>
-    <h3 class='text-3xl text-left text-slate-500 font-light'>
+    <h3 class='text-5xl max-md:text-3xl text-slate-500 font-light'>
       A nice and clean app to visualize your csv files
     </h3>
+    <div
+      class='mt-6 max-md:flex-col max-md:items-start max-md:gap-y-8 flex items-center gap-x-8'
+    >
+      <button
+        class='transition-all ease-in-out text-2xl text-white bg-orange-600 rounded-lg py-3 px-6 hover:bg-orange-500 duration-300'
+        >Sign In</button
+      >
+      <p class='text-slate-700 text-xl'>
+        Don't have an account yet? <a
+          href='/register'
+          class='text-slate-800 font-bold underline'>Register</a
+        >
+      </p>
+    </div>
   </main>
 </Layout>

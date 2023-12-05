@@ -1,0 +1,49 @@
+---
+
+---
+
+<nav
+  class='text-slate-600 flex items-center justify-between bg-transparent z-40'
+>
+  <div>
+    <a href='/'>
+      <h1 class='text-3xl'>
+        Easy<span class='font-bold text-orange-600'>CSV</span>
+      </h1>
+    </a>
+  </div>
+  <ul class='flex items-center gap-x-8 max-md:hidden'>
+    <a
+      href='/'
+      class={`transition ease-in-out text-xl hover:text-orange-600 duration-300 ${
+        Astro.url.pathname === '/' ? 'text-orange-600' : 'text-slate-600'
+      }`}
+    >
+      Home
+    </a>
+    <a
+      class={`transition ease-in-out text-xl hover:text-orange-600 duration-300 ${
+        Astro.url.pathname === '/about' ? 'text-orange-600' : 'text-slate-600'
+      }`}
+      href='/about'
+    >
+      About
+    </a>
+    <a
+      href='/signin'
+      class='transition ease-in-out text-xl bg-slate-600 text-white py-1 px-4 rounded-md hover:bg-orange-500 duration-300'
+    >
+      Sign In
+    </a>
+    <a
+      class={`transition ease-in-out text-xl hover:text-orange-600 duration-300 ${
+        Astro.url.pathname === '/register'
+          ? 'text-orange-600 font-semibold'
+          : 'text-slate-800 font-semibold'
+      }`}
+      href='/register'
+    >
+      Register
+    </a>
+  </ul>
+</nav>

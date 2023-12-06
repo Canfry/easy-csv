@@ -4,46 +4,46 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title='Register'>
   <div class='grow flex flex-col items-center justify-center relative'>
-    <h1 class='text-4xl text-slate-600 uppercase text bold'>Register</h1>
+    <h1 class='text-5xl text-slate-600 uppercase text bold'>Register</h1>
     <form class='py-8 px-8 max-w-70% mx-auto'>
       <div class='flex flex-col items-start'>
-        <label for='name' class='text-slate-600'> Name:</label>
+        <label for='name' class='text-slate-600 text-xl'> Name:</label>
         <input
           type='text'
           name='name'
-          class='border border-orange-600 mb-4 w-full rounded-md py-1 px-3 outline-3 outline-orange-600'
+          class='border border-orange-600 mb-4 w-full rounded-md py-2 px-3 outline-3 outline-orange-600'
           placeholder='Enter your name'
           autocomplete='off'
         />
       </div>
       <div class='flex flex-col items-start'>
-        <label for='email' class='text-slate-600'> Email:</label>
+        <label for='email' class='text-slate-600 text-xl'> Email:</label>
         <input
           type='text'
           name='email'
-          class='border border-orange-600 mb-4 w-full rounded-md py-1 px-3 outline-3 outline-orange-600'
+          class='border border-orange-600 mb-4 w-full rounded-md py-2 px-3 outline-3 outline-orange-600'
           placeholder='Enter your email'
           autocomplete='off'
         />
       </div>
       <div class='flex flex-col items-start'>
-        <label for='password' class='text-slate-600'> Password:</label>
+        <label for='password' class='text-slate-600 text-xl'> Password:</label>
         <input
           type='password'
           name='password'
-          class='border border-orange-600 mb-4 w-full rounded-md py-1 px-3 outline-3 outline-orange-600'
+          class='border border-orange-600 mb-4 w-full rounded-md py-2 px-3 outline-3 outline-orange-600'
           placeholder='Enter your password'
           autocomplete='off'
         />
       </div>
       <div class='flex flex-col items-start'>
-        <label for='repeat-password' class='text-slate-600'>
+        <label for='repeat-password' class='text-slate-600 text-xl'>
           Confirm password:
         </label>
         <input
           type='password'
           name='repeat-password'
-          class='border border-orange-600 mb-4 w-full rounded-md py-1 px-3 outline-3 outline-orange-600'
+          class='border border-orange-600 mb-4 w-full rounded-md py-2 px-3 outline-3 outline-orange-600'
           placeholder='Confirm your password'
           autocomplete='off'
         />

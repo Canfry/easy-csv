@@ -1,5 +1,5 @@
 ---
-
+const user = Astro.cookies.get('userName');
 ---
 
 <nav
@@ -13,33 +13,33 @@
     </a>
   </div>
   <ul class='flex items-center gap-x-8 max-md:hidden'>
-    <!-- <a
-      href='/'
-      class={`transition ease-in-out text-xl hover:text-orange-600 duration-300 ${
-        Astro.url.pathname === '/' ? 'text-orange-600' : 'text-slate-600'
-      }`}
-    >
-      Home
-    </a>
-    <a
-      class={`transition ease-in-out text-xl hover:text-orange-600 duration-300 ${
-        Astro.url.pathname === '/about' ? 'text-orange-600' : 'text-slate-600'
-      }`}
-      href='/about'
-    >
-      About
-    </a> -->
-    <a
-      href='/signin'
-      class='transition ease-in-out text-xl bg-transparent text-orange-500 border border-1 hover:border-orange-600 border-slate-700 py-1 px-4 rounded-md hover:bg-orange-500 hover:text-white duration-300'
-    >
-      Sign In
-    </a>
-    <a
-      class='transition ease-in-out text-xl text-slate-800 font-semibold hover:text-orange-600 duration-300'
-      href='/register'
-    >
-      Register
-    </a>
+    {
+      user?.value ? (
+        <>
+          <p>Welcome {user.value}</p>
+          <a
+            href='/logout'
+            class='transition ease-in-out text-xl bg-transparent text-orange-500 border border-1 hover:border-orange-600 border-slate-700 py-1 px-4 rounded-md hover:bg-orange-500 hover:text-white duration-300'
+          >
+            Sign Out
+          </a>
+        </>
+      ) : (
+        <>
+          <a
+            href='/signin'
+            class='transition ease-in-out text-xl bg-transparent text-orange-500 border border-1 hover:border-orange-600 border-slate-700 py-1 px-4 rounded-md hover:bg-orange-500 hover:text-white duration-300'
+          >
+            Sign In
+          </a>
+          <a
+            class='transition ease-in-out text-xl text-slate-800 font-semibold hover:text-orange-600 duration-300'
+            href='/register'
+          >
+            Register
+          </a>
+        </>
+      )
+    }
   </ul>
 </nav>

@@ -14,6 +14,7 @@
     "@astrojs/tailwind": "^5.0.3",
     "@astrojs/vercel": "^6.0.0",
     "@fontsource/anek-gujarati": "^5.0.17",
+    "@xata.io/client": "^0.28.0",
     "astro": "^4.0.2",
     "bcryptjs": "^2.4.3",
     "tailwindcss": "^3.3.6",

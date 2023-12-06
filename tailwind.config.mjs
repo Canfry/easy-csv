@@ -7,5 +7,5 @@ export default {
       image: 'url(/White printing.jpg)',
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 };

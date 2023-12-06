@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 
 const user = Astro.cookies.get('userId');
-console.log(user);
 if (!user) {
   return Astro.redirect('/');
 }
@@ -10,10 +9,33 @@ if (!user) {
 
 <Layout title='Dashboard'>
   <div
-    class='max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto flex flex-cols items-center justify-center'
+    class='max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto flex flex-col gap-y-10 items-center justify-center'
   >
     <h1 class='text-center text-3xl text-slate-700'>
-      It seems you didn't uplaod any files yet. Let's start!!
+      It seems you didn't upload any files yet. <span class='text-orange-600'
+        >Let's start!!</span
+      >
     </h1>
+    <div class='flex items-center gap-x-6'>
+      <input
+        type='file'
+        class='file-input file-input-bordered border-orange-600 file-input-[orange-600] w-full max-w-xs'
+      />
+      <button
+        type='submit'
+        class='border border-slate-600 bg-transparent text-orange-600 py-2.5 px-4 rounded-md hover:bg-orange-600 hover:border-orange-600 hover:text-white'
+      >
+        Upload
+      </button>
+    </div>
+    <!-- <div class='flex items-center'>
+      <span class='bg-slate-600 text-white p-3 cursor-pointer rounded-l-lg'>
+        Browse file
+      </span>
+      <input
+        type='file'
+        class='file-input file-input-bordered w-40 max-w-xs [&::file-selector-button]:hidden p-2.5 rounded-l-none'
+      />
+    </div> -->
   </div>
 </Layout>

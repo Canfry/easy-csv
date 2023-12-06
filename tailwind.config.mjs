@@ -6,6 +6,9 @@ export default {
     backgroundImage: {
       image: 'url(/White printing.jpg)',
     },
+    daisyui: {
+      themes: false,
+    },
   },
   plugins: [require('daisyui')],
 };

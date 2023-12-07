@@ -19,6 +19,15 @@ const tables = [
       },
       { name: "password", type: "string", notNull: true, defaultValue: "" },
     ],
+    revLinks: [{ column: "user", table: "files" }],
+  },
+  {
+    name: "files",
+    columns: [
+      { name: "name", type: "string", notNull: true, defaultValue: "" },
+      { name: "user", type: "link", link: { table: "users" }, unique: true },
+      { name: "file", type: "file" },
+    ],
   },
 ] as const;
 
@@ -28,8 +37,12 @@ export type InferredTypes = SchemaInference<SchemaTables>;
 export type Users = InferredTypes["users"];
 export type UsersRecord = Users & XataRecord;
 
+export type Files = InferredTypes["files"];
+export type FilesRecord = Files & XataRecord;
+
 export type DatabaseSchema = {
   users: UsersRecord;
+  files: FilesRecord;
 };
 
 const DatabaseClient = buildClient();

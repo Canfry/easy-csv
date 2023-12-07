@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { XataClient, type FilesRecord } from '../xata';
 
 const user = Astro.cookies.get('userId');
 if (!user) {
@@ -22,6 +23,8 @@ if (!user) {
     >
       <input
         type='file'
+        name='file'
+        id='file'
         class='file-input file-input-bordered border-orange-600 file-input-[orange-600] w-full max-w-xs'
       />
       <button

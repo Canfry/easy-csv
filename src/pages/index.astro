@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const user = Astro.cookies.get('userId');
+if (user) {
+  return Astro.redirect('/dashboard');
+}
 ---
 
 <Layout title='Welcome to Astro.'>

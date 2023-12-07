@@ -16,7 +16,10 @@ if (!user) {
         >Let's start!!</span
       >
     </h1>
-    <div class='flex items-center gap-x-6'>
+    <form
+      class='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6'
+      method='POST'
+    >
       <input
         type='file'
         class='file-input file-input-bordered border-orange-600 file-input-[orange-600] w-full max-w-xs'
@@ -27,6 +30,7 @@ if (!user) {
       >
         Upload
       </button>
-    </div>
+    </form>
+    <!-- TODO: Make input and button flex-col on small screens -->
   </div>
 </Layout>

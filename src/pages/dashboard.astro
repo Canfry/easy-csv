@@ -1,11 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { XataClient, type FilesRecord } from '../xata';
+import { XataClient } from '../xata';
 
 const user = Astro.cookies.get('userId');
 if (!user) {
   return Astro.redirect('/');
 }
+
+// if (Astro.request.method === 'POST') {
+//   const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
+//   const data = await Astro.request.formData();
+//   const file = data.get('file') as string;
+
+//   await xata.files.upload(
+//     { table: 'files', column: 'file', record: file },
+//     file
+//   );
+
+//   return Astro.redirect('/dashboard', 302);
+// }
+
+// const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
+// const data = await xata.db.files.getFirst();
+// console.log(data);
 ---
 
 <Layout title='Dashboard'>
@@ -19,7 +36,8 @@ if (!user) {
     </h1>
     <form
       class='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6'
-      method='POST'
+      method='GET'
+      action='/api/upload'
     >
       <input
         type='file'

@@ -24,9 +24,9 @@ const tables = [
   {
     name: "files",
     columns: [
-      { name: "name", type: "string", notNull: true, defaultValue: "" },
       { name: "user", type: "link", link: { table: "users" }, unique: true },
       { name: "file", type: "file" },
+      { name: "name", type: "string", defaultValue: "" },
     ],
   },
 ] as const;

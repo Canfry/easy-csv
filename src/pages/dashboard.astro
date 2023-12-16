@@ -1,57 +1,116 @@
 ---
+import fs from 'fs';
 import Layout from '../layouts/Layout.astro';
 import { XataClient } from '../xata';
+import type { XataFile } from '@xata.io/client';
+import csv from 'csv-parser';
 
 const user = Astro.cookies.get('userId');
 if (!user) {
   return Astro.redirect('/');
 }
 
-// if (Astro.request.method === 'POST') {
-//   const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
-//   const data = await Astro.request.formData();
-//   const file = data.get('file') as string;
+const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
 
-//   await xata.files.upload(
-//     { table: 'files', column: 'file', record: file },
-//     file
-//   );
+const files = await xata.db.files.filter({ 'user.id': user.value }).getMany();
 
-//   return Astro.redirect('/dashboard', 302);
-// }
+if (files.length > 0) {
+  const file = await xata.db.files.read(files[0].id);
+  console.log(file);
+}
 
-// const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
-// const data = await xata.db.files.getFirst();
+// const file = files[0].file?.base64Content;
+// const data = file?.file?.base64Content;
+
+// console.log(file?.file?.base64Content);
 // console.log(data);
 ---
 
 <Layout title='Dashboard'>
-  <div
-    class='max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto flex flex-col gap-y-10 items-center justify-center'
-  >
-    <h1 class='text-center text-3xl text-slate-700'>
-      It seems you didn't upload any files yet. <span class='text-orange-600'
-        >Let's start!!</span
-      >
-    </h1>
-    <form
-      class='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6'
-      method='POST'
-      action='/api/upload'
-      enctype='multipart/form-data'
-    >
-      <input
-        type='file'
-        name='file'
-        id='file'
-        class='file-input file-input-bordered border-orange-600 file-input-[orange-600] w-full max-w-xs'
-      />
-      <button
-        type='submit'
-        class='border border-slate-600 bg-transparent text-orange-600 py-2.5 px-4 rounded-md hover:bg-orange-600 hover:border-orange-600 hover:text-white'
-      >
-        Upload
-      </button>
-    </form>
-  </div>
+  {
+    files.length === 0 ? (
+      <div class='max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto flex flex-col gap-y-10 items-center justify-center'>
+        <h1 class='text-center text-3xl text-slate-700'>
+          It seems you didn't upload any files yet.{' '}
+          <span class='text-orange-600'>Let's start!!</span>
+        </h1>
+        <form
+          class='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6'
+          method='POST'
+          action='/api/upload'
+          enctype='multipart/form-data'
+        >
+          <input
+            type='file'
+            name='file'
+            id='file'
+            required
+            class='file-input file-input-bordered border-orange-600 file-input-[orange-600] w-full max-w-xs'
+          />
+          <button
+            type='submit'
+            class='border border-slate-600 bg-transparent text-orange-600 py-2.5 px-4 rounded-md hover:bg-orange-600 hover:border-orange-600 hover:text-white'
+          >
+            Upload
+          </button>
+        </form>
+      </div>
+    ) : (
+      <div class='grid grid-cols-[auto,1fr] w-full'>
+        <div class='py-16 px-8 bg-gray-50'>
+          {files.map((file) => (
+            <p class='text-orange-600 font-bold mb-4'>{file.name}</p>
+          ))}
+        </div>
+        <div class='overflow-x-scroll w-full'>
+          <table class='table w-full'>
+            {/* head */}
+            <thead class='text-xl'>
+              <tr>
+                <th />
+                <th>Name</th>
+                <th class='px-16 text-center'>Job</th>
+                <th>Favorite Color</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Favorite Color</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Favorite Color</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Favorite Color</th>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Favorite Color</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+              <tr class='hover'>
+                <th>1</th>
+                <td>Cy Ganderton</td>
+                <td>Quality Control Specialist</td>
+                <td>Blue</td>
+              </tr>
+              {/* row 2 */}
+              <tr class='hover'>
+                <th>2</th>
+                <td>Hart Hagerty</td>
+                <td>Desktop Support Technician</td>
+                <td>Purple</td>
+              </tr>
+              {/* row 3 */}
+              <tr class='hover'>
+                <th>3</th>
+                <td>Brice Swyre</td>
+                <td>Tax Accountant</td>
+                <td>Red</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )
+  }
 </Layout>

@@ -1,9 +1,8 @@
 ---
-import fs from 'fs';
 import Layout from '../layouts/Layout.astro';
 import { XataClient } from '../xata';
-import type { XataFile } from '@xata.io/client';
-import csv from 'csv-parser';
+
+import * as csv from 'csv-string';
 
 const user = Astro.cookies.get('userId');
 if (!user) {
@@ -14,16 +13,27 @@ const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
 
 const files = await xata.db.files.filter({ 'user.id': user.value }).getMany();
 
-if (files.length > 0) {
-  const file = await xata.db.files.read(files[0].id);
-  console.log(file);
-}
+const file = await xata.db.files.read(files[0].id, [
+  'id',
+  'name',
+  'file',
+  'file.base64Content',
+  'file.signedUrl',
+]);
+console.log(file?.file?.base64Content);
 
-// const file = files[0].file?.base64Content;
-// const data = file?.file?.base64Content;
-
-// console.log(file?.file?.base64Content);
+const plainText = Buffer.from(file?.file?.base64Content!, 'base64').toString(
+  'utf-8'
+);
+console.log(plainText);
+const parsedCsv = csv.parse(plainText, { output: 'objects' });
+console.log(parsedCsv);
+// const data = parsedCsv.map((row) => Object.values(row));
 // console.log(data);
+// console.log(Object.keys(parsedCsv[0]));
+const headers = Object.keys(parsedCsv[0]);
+// console.log(headers);
+// console.log(Object.entries(parsedCsv));
 ---
 
 <Layout title='Dashboard'>
@@ -67,46 +77,19 @@ if (files.length > 0) {
             {/* head */}
             <thead class='text-xl'>
               <tr>
-                <th />
-                <th>Name</th>
-                <th class='px-16 text-center'>Job</th>
-                <th>Favorite Color</th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
+                {headers.map((header) => (
+                  <th>{header}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
-              <tr class='hover'>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
-              </tr>
-              {/* row 2 */}
-              <tr class='hover'>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td>Purple</td>
-              </tr>
-              {/* row 3 */}
-              <tr class='hover'>
-                <th>3</th>
-                <td>Brice Swyre</td>
-                <td>Tax Accountant</td>
-                <td>Red</td>
-              </tr>
+              {parsedCsv.map((row) => (
+                <tr class='hover'>
+                  {Object.values(row).map((row) => (
+                    <td>{row}</td>
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

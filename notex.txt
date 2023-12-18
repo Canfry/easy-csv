@@ -1,0 +1,64 @@
+How to read a base64 csv file from xata database to display content uising astro framework and typescript
+
+
+To read a base64 CSV file from an Xata database and display its content using the Astro framework and TypeScript, you can follow these steps:
+
+1. Install required dependencies:
+   - Astro: `npm install --save astro`
+   - Xata: `npm install --save xata`
+   - PapaParse (CSV parsing library): `npm install --save papaparse`
+
+2. Import the required modules in your TypeScript file:
+```typescript
+import { reactive } from 'astro';
+import { Database } from 'xata';
+import Papa from 'papaparse';
+```
+
+3. Create a reactive state to store the parsed CSV data:
+```typescript
+const state = reactive({
+  csvData: [] as any[], // Modify the type according to your CSV structure
+});
+```
+
+4. Connect to the Xata database and retrieve the base64 encoded CSV file:
+```typescript
+const db = new Database('xata-database-url');
+const csvFile = await db.getBase64('path-to-csv-file-in-xata');
+```
+
+5. Parse the base64 encoded CSV data using PapaParse:
+```typescript
+const parsedData = Papa.parse(atob(csvFile.data), { header: true }).data;
+state.csvData = parsedData;
+
+
+
+<th />
+                <th>Name</th>
+                <th class='px-16 text-center'>Job</th>
+                <th>Favorite Color</th>
+
+
+{contacts.map((contact, index) => (
+            <tr
+              className={`${
+                index % 2 === 1 ? 'bg-white' : 'bg-gray-100'
+              } text-center hover:bg-orange-600 hover:text-white `}
+              key={index}
+            >
+              {Object.values(contact).map((val, index) => (
+                <td className='py-4' key={index}>
+                  {val}
+                </td>
+
+
+ <th>1</th>
+                <td>Cy Ganderton</td>
+                <td>Quality Control Specialist</td>
+                <td>Blue</td>
+
+{headers.map((header) => (
+                //   <th>{header}</th>
+                // ))}

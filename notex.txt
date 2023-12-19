@@ -62,3 +62,38 @@ state.csvData = parsedData;
 {headers.map((header) => (
                 //   <th>{header}</th>
                 // ))}
+
+
+TABLE
+<div class='overflow-x-scroll w-full'>
+          <table class='table w-full'>
+            {/* head */}
+            <thead class='text-xl'>
+              <tr>
+                {headers.map((header) => (
+                  <th>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {parsedCsv.map((row) => (
+                <tr class='hover'>
+                  {Object.values(row).map((data) => (
+                    <td>{data}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+
+
+{files.map((file) => (
+            <button
+              onclick={() => getFileData(file?.name ?? '')}
+              class='text-orange-600 font-bold mb-4'
+            >
+              {file.name}
+            </button>
+          ))}

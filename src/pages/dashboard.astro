@@ -1,6 +1,7 @@
 ---
+import type { SelectedPick } from '@xata.io/client';
 import Layout from '../layouts/Layout.astro';
-import { XataClient } from '../xata';
+import { XataClient, type FilesRecord } from '../xata';
 
 import * as csv from 'csv-string';
 
@@ -13,27 +14,33 @@ const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
 
 const files = await xata.db.files.filter({ 'user.id': user.value }).getMany();
 
-const file = await xata.db.files.read(files[0].id, [
-  'id',
-  'name',
-  'file',
-  'file.base64Content',
-  'file.signedUrl',
-]);
-console.log(file?.file?.base64Content);
+type Data = {
+  headers: string[];
+  data: { [k: string]: string }[];
+};
 
-const plainText = Buffer.from(file?.file?.base64Content!, 'base64').toString(
-  'utf-8'
+const getFileData = async (fileName: string): Promise<Data> => {
+  const correctFile = await xata.db.files
+    .filter({ name: fileName, 'user.id': user.value })
+    .getFirst();
+  const file = await xata.db.files.read(correctFile!.id, [
+    'id',
+    'name',
+    'file',
+    'file.base64Content',
+    'file.signedUrl',
+  ]);
+  const plainText = Buffer.from(file?.file?.base64Content!, 'base64').toString(
+    'utf-8'
+  );
+  const parsedCsv = csv.parse(plainText, { output: 'objects' });
+  const headers = Object.keys(parsedCsv[0]);
+  return { headers, data: parsedCsv };
+};
+
+const { headers, data }: Data = await getFileData(
+  'Untitled spreadsheet - Sheet1 (1).csv'
 );
-console.log(plainText);
-const parsedCsv = csv.parse(plainText, { output: 'objects' });
-console.log(parsedCsv);
-// const data = parsedCsv.map((row) => Object.values(row));
-// console.log(data);
-// console.log(Object.keys(parsedCsv[0]));
-const headers = Object.keys(parsedCsv[0]);
-// console.log(headers);
-// console.log(Object.entries(parsedCsv));
 ---
 
 <Layout title='Dashboard'>
@@ -66,10 +73,15 @@ const headers = Object.keys(parsedCsv[0]);
         </form>
       </div>
     ) : (
-      <div class='grid grid-cols-[auto,1fr] w-full'>
+      <div class='grid grid-cols-[auto,1fr] w-full z-50'>
         <div class='py-16 px-8 bg-gray-50'>
           {files.map((file) => (
-            <p class='text-orange-600 font-bold mb-4'>{file.name}</p>
+            <button
+              onclick={() => getFileData(file?.name ?? '')}
+              class='text-orange-600 font-bold mb-4'
+            >
+              {file.name}
+            </button>
           ))}
         </div>
         <div class='overflow-x-scroll w-full'>
@@ -83,10 +95,10 @@ const headers = Object.keys(parsedCsv[0]);
               </tr>
             </thead>
             <tbody>
-              {parsedCsv.map((row) => (
+              {data.map((row) => (
                 <tr class='hover'>
-                  {Object.values(row).map((row) => (
-                    <td>{row}</td>
+                  {Object.values(row).map((data) => (
+                    <td>{data}</td>
                   ))}
                 </tr>
               ))}

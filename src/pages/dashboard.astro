@@ -38,9 +38,7 @@ const getFileData = async (fileName: string): Promise<Data> => {
   return { headers, data: parsedCsv };
 };
 
-const { headers, data }: Data = await getFileData(
-  'Untitled spreadsheet - Sheet1 (1).csv'
-);
+const { headers, data }: Data = await getFileData('cafe-data.csv');
 ---
 
 <Layout title='Dashboard'>
@@ -74,7 +72,7 @@ const { headers, data }: Data = await getFileData(
       </div>
     ) : (
       <div class='grid grid-cols-[auto,1fr] w-full z-50'>
-        <div class='py-16 px-8 bg-gray-50'>
+        <div class='py-16 px-8 bg-gray-50 flex flex-col gap-y-4'>
           {files.map((file) => (
             <button
               onclick={() => getFileData(file?.name ?? '')}

@@ -1,9 +1,10 @@
 ---
-import type { SelectedPick } from '@xata.io/client';
+import type { RecordArray, SelectedPick } from '@xata.io/client';
 import Layout from '../layouts/Layout.astro';
 import { XataClient, type FilesRecord } from '../xata';
 
 import * as csv from 'csv-string';
+import FileList from '../components/FileList';
 
 const user = Astro.cookies.get('userId');
 if (!user) {
@@ -14,9 +15,13 @@ const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
 
 const files = await xata.db.files.filter({ 'user.id': user.value }).getMany();
 
-type Data = {
-  headers: string[];
+export type FileData = {
   data: { [k: string]: string }[];
+};
+
+export type Data = {
+  headers: string[];
+  data: FileData['data'];
 };
 
 const getFileData = async (fileName: string): Promise<Data> => {
@@ -35,10 +40,16 @@ const getFileData = async (fileName: string): Promise<Data> => {
   );
   const parsedCsv = csv.parse(plainText, { output: 'objects' });
   const headers = Object.keys(parsedCsv[0]);
+  console.log(headers);
   return { headers, data: parsedCsv };
 };
 
-const { headers, data }: Data = await getFileData('cafe-data.csv');
+// const { headers, data }: Data = await getFileData('cafe-data.csv');
+
+type Props = {
+  files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>;
+  // getFileData: (fileName: string) => Promise<Data>;
+};
 ---
 
 <Layout title='Dashboard'>
@@ -71,39 +82,7 @@ const { headers, data }: Data = await getFileData('cafe-data.csv');
         </form>
       </div>
     ) : (
-      <div class='grid grid-cols-[auto,1fr] w-full z-50'>
-        <div class='py-16 px-8 bg-gray-50 flex flex-col gap-y-4'>
-          {files.map((file) => (
-            <button
-              onclick={() => getFileData(file?.name ?? '')}
-              class='text-orange-600 font-bold mb-4'
-            >
-              {file.name}
-            </button>
-          ))}
-        </div>
-        <div class='overflow-x-scroll w-full'>
-          <table class='table w-full'>
-            {/* head */}
-            <thead class='text-xl'>
-              <tr>
-                {headers.map((header) => (
-                  <th>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row) => (
-                <tr class='hover'>
-                  {Object.values(row).map((data) => (
-                    <td>{data}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <FileList client:visible files={files} getFileData={getFileData} />
     )
   }
 </Layout>

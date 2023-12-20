@@ -97,3 +97,14 @@ TABLE
               {file.name}
             </button>
           ))}
+
+
+ {files.map((file: FilesRecord) => (
+    <button
+      onClick={() => getFileData(file?.name ?? '')}
+      className='text-orange-600 font-bold mb-4'
+    >
+      {file.name}
+    </button>
+    
+    ))}

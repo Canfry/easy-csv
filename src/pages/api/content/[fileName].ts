@@ -1,13 +1,11 @@
 import type { APIRoute } from 'astro';
 import { XataClient } from '../../../xata';
 import * as csv from 'csv-string';
-import getFileData from '../../dashboard/index.astro';
 
 export const GET: APIRoute = async ({ cookies, params }) => {
   const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
   const userId = cookies.get('userId');
   const fileName = params.fileName as string;
-  // const files = await xata.db.files.filter({ 'user.id': userId?.value }).getMany();
 
   if (!userId) {
     return new Response(JSON.stringify({ error: 'Not logged in' }), {

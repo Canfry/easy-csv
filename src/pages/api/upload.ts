@@ -26,8 +26,6 @@ export const POST: APIRoute = async ({ redirect, cookies, request }) => {
       user: userId?.value,
       file: XataFile.fromBase64(record),
     });
-
-    // console.log(records);
     return redirect('/dashboard');
   }
 };

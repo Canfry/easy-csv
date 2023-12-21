@@ -44,11 +44,8 @@ export const getFileData = async (fileName: string): Promise<Data> => {
   return { headers, data: parsedCsv };
 };
 
-// const { headers, data }: Data = await getFileData('cafe-data.csv');
-
 type Props = {
   files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>;
-  // getFileData: (fileName: string) => Promise<Data>;
 };
 ---
 

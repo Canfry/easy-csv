@@ -1,6 +1,6 @@
 import type { RecordArray, SelectedPick } from '@xata.io/client';
-import type { Data } from '../pages/dashboard.astro';
-import type { FileData } from '../pages/dashboard.astro';
+import type { Data } from '../pages/dashboard/index.astro';
+import type { FileData } from '../pages/dashboard/index.astro';
 import type { FilesRecord } from '../xata';
 import { useState } from 'react';
 

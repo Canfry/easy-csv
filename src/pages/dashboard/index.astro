@@ -1,10 +1,10 @@
 ---
 import type { RecordArray, SelectedPick } from '@xata.io/client';
-import Layout from '../layouts/Layout.astro';
-import { XataClient, type FilesRecord } from '../xata';
+import Layout from '../../layouts/Layout.astro';
+import { XataClient, type FilesRecord } from '../../xata';
 
 import * as csv from 'csv-string';
-import FileList from '../components/FileList';
+import FileList from '../../components/FileList';
 
 const user = Astro.cookies.get('userId');
 if (!user) {
@@ -82,7 +82,7 @@ type Props = {
         </form>
       </div>
     ) : (
-      <FileList client:visible files={files} getFileData={getFileData} />
+      <FileList client:load files={files} getFileData={getFileData} />
     )
   }
 </Layout>

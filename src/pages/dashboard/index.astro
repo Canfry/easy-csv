@@ -24,7 +24,7 @@ export type Data = {
   data: FileData['data'];
 };
 
-const getFileData = async (fileName: string): Promise<Data> => {
+export const getFileData = async (fileName: string): Promise<Data> => {
   const correctFile = await xata.db.files
     .filter({ name: fileName, 'user.id': user.value })
     .getFirst();
@@ -82,7 +82,7 @@ type Props = {
         </form>
       </div>
     ) : (
-      <FileList client:load files={files} getFileData={getFileData} />
+      <FileList client:load files={files} />
     )
   }
 </Layout>

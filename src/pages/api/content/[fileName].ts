@@ -1,11 +1,12 @@
 import type { APIRoute } from 'astro';
-import { XataClient } from '../../xata';
+import { XataClient } from '../../../xata';
 import * as csv from 'csv-string';
+import getFileData from '../../dashboard/index.astro';
 
-export const GET: APIRoute = async ({ cookies, request }) => {
+export const GET: APIRoute = async ({ cookies, params }) => {
   const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
   const userId = cookies.get('userId');
-  const { fileName } = await request.json();
+  const fileName = params.fileName as string;
   // const files = await xata.db.files.filter({ 'user.id': userId?.value }).getMany();
 
   if (!userId) {
@@ -31,8 +32,7 @@ export const GET: APIRoute = async ({ cookies, request }) => {
     ).toString('utf-8');
     const parsedCsv = csv.parse(plainText, { output: 'objects' });
     const headers = Object.keys(parsedCsv[0]);
-    console.log(headers);
-    return { headers, data: parsedCsv };
+    return new Response(JSON.stringify({ headers, data: parsedCsv }));
   } catch (error) {
     return new Response(
       JSON.stringify({

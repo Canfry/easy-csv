@@ -1,25 +1,39 @@
 import type { RecordArray, SelectedPick } from '@xata.io/client';
-import type { Data } from '../pages/dashboard/index.astro';
-import type { FileData } from '../pages/dashboard/index.astro';
+import type Data from '../pages/dashboard/index.astro';
+import type FileData from '../pages/dashboard/index.astro';
 import type { FilesRecord } from '../xata';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function FileList({
   files,
-  getFileData,
 }: {
   files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>;
-  getFileData: (fileName: string) => Promise<Data>;
 }) {
   const [headers, setHeaders] = useState<string[]>([]);
-  const [fileData, setFileData] = useState<FileData['data']>([]);
+  const [fileData, setFileData] = useState<(typeof Data)[]>([]);
+  const params = useParams();
 
-  async function handleClick(fileName: string) {
-    console.log('clicked');
-    const { headers, data: parseCsv } = await getFileData(fileName);
-    setHeaders(headers);
-    setFileData(parseCsv);
+  const { fileName } = params as { fileName: string };
+
+  async function getData(fileName: string) {
+    const response = await fetch(
+      `http://localhost:4321/api/content/${fileName}`,
+      {
+        headers: {
+          'Content-Type': 'application/text',
+        },
+      }
+    );
+    const data = await response.json();
+    setHeaders(data.headers);
+    setFileData(data.data);
   }
+
+  useEffect(() => {
+    if (!fileName) return;
+    getData(fileName);
+  }, [fileName]);
 
   return (
     <div className='grid grid-cols-[auto,1fr] w-full z-50'>
@@ -28,7 +42,7 @@ export default function FileList({
           <button
             className='text-orange-600 font-bold'
             key={file.id}
-            onClick={() => handleClick(file?.name ?? '')}
+            onClick={() => getData(file?.name ?? '')}
           >
             {file.name}
           </button>
@@ -39,16 +53,16 @@ export default function FileList({
           {/* head */}
           <thead className='text-xl'>
             <tr>
-              {headers.map((header) => (
-                <th>{header}</th>
+              {headers.map((header, index) => (
+                <th key={index}>{header}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {fileData.map((row) => (
-              <tr className='hover'>
-                {Object.values(row).map((data) => (
-                  <td>{data}</td>
+            {fileData.map((row, index) => (
+              <tr key={index} className='hover'>
+                {Object.values(row).map((data, index) => (
+                  <td key={index}>{data}</td>
                 ))}
               </tr>
             ))}

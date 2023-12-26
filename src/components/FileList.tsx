@@ -12,6 +12,7 @@ export default function FileList({
 }) {
   const [headers, setHeaders] = useState<string[]>([]);
   const [fileData, setFileData] = useState<(typeof Data)[]>([]);
+  const [fileList, setFileList] = useState(files ?? []);
   const params = useParams();
 
   const { fileName } = params as { fileName: string };
@@ -26,6 +27,7 @@ export default function FileList({
       }
     );
     const data = await response.json();
+    console.log(data);
     setHeaders(data.headers);
     setFileData(data.data);
   }
@@ -33,7 +35,16 @@ export default function FileList({
   useEffect(() => {
     if (!fileName) return;
     getData(fileName);
-  }, [fileName]);
+  }, [fileName, fileList]);
+
+  async function deleteFile(id: string) {
+    const res = await fetch(`http://localhost:4321/api/delete/${id}`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    const newFiles = files.filter((file) => file.id !== data.id);
+    setFileList(newFiles as any);
+  }
 
   return (
     <div className='grid grid-cols-[auto,1fr] w-full z-50'>
@@ -84,7 +95,7 @@ export default function FileList({
         {/* <button className='text-center rounded-full w-8 h-8 bg-orange-600 flex items-center justify-center mx-auto pb-1 cursor-pointer'>
           <p className='text-3xl text-white'>+</p>
         </button>*/}
-        {files.map((file) => (
+        {fileList.map((file) => (
           <div key={file.id} className='flex items-center gap-x-2'>
             <button
               className='text-orange-600 font-bold'
@@ -92,7 +103,9 @@ export default function FileList({
             >
               {file.name}
             </button>
-            <IoTrashSharp className='text-slate-600 cursor-pointer' />
+            <button onClick={() => deleteFile(file.id)}>
+              <IoTrashSharp className='text-slate-600 cursor-pointer' />
+            </button>
           </div>
         ))}
       </div>

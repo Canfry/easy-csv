@@ -3,7 +3,6 @@ import type { RecordArray, SelectedPick } from '@xata.io/client';
 import Layout from '../../layouts/Layout.astro';
 import { XataClient, type FilesRecord } from '../../xata';
 
-import * as csv from 'csv-string';
 import FileList from '../../components/FileList';
 
 const user = Astro.cookies.get('userId');
@@ -14,35 +13,6 @@ if (!user) {
 const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
 
 const files = await xata.db.files.filter({ 'user.id': user.value }).getMany();
-
-export type FileData = {
-  data: { [k: string]: string }[];
-};
-
-export type Data = {
-  headers: string[];
-  data: FileData['data'];
-};
-
-export const getFileData = async (fileName: string): Promise<Data> => {
-  const correctFile = await xata.db.files
-    .filter({ name: fileName, 'user.id': user.value })
-    .getFirst();
-  const file = await xata.db.files.read(correctFile!.id, [
-    'id',
-    'name',
-    'file',
-    'file.base64Content',
-    'file.signedUrl',
-  ]);
-  const plainText = Buffer.from(file?.file?.base64Content!, 'base64').toString(
-    'utf-8'
-  );
-  const parsedCsv = csv.parse(plainText, { output: 'objects' });
-  const headers = Object.keys(parsedCsv[0]);
-  console.log(headers);
-  return { headers, data: parsedCsv };
-};
 
 type Props = {
   files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>;

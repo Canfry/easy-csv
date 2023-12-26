@@ -37,6 +37,9 @@ export default function FileList({
   return (
     <div className='grid grid-cols-[auto,1fr] w-full z-50'>
       <div className='py-16 px-8 bg-gray-50 flex flex-col gap-y-4'>
+        <button className='text-center rounded-full w-8 h-8 bg-orange-600 flex items-center justify-center mx-auto pb-1 cursor-pointer'>
+          <p className='text-3xl text-white'>+</p>
+        </button>
         {files.map((file) => (
           <button
             className='text-orange-600 font-bold'

@@ -1,7 +1,7 @@
 import type { RecordArray, SelectedPick } from '@xata.io/client';
 import type Data from '../pages/dashboard/index.astro';
 import type { FilesRecord } from '../xata';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IoTrashSharp } from 'react-icons/io5';
 
@@ -13,6 +13,7 @@ export default function FileList({
   const [headers, setHeaders] = useState<string[]>([]);
   const [fileData, setFileData] = useState<(typeof Data)[]>([]);
   const [fileList, setFileList] = useState(files ?? []);
+  const searchRef = useRef<HTMLInputElement>(null);
   const params = useParams();
 
   const { fileName } = params as { fileName: string };
@@ -35,7 +36,7 @@ export default function FileList({
   useEffect(() => {
     if (!fileName) return;
     getData(fileName);
-  }, [fileName, fileList]);
+  }, [fileList]);
 
   async function deleteFile(id: string) {
     const res = await fetch(`http://localhost:4321/api/delete/${id}`, {
@@ -46,10 +47,19 @@ export default function FileList({
     setFileList(newFiles as any);
   }
 
+  function handleChange() {
+    const value = searchRef.current?.value;
+    const newFiles = files.filter((file) =>
+      file?.name?.includes(value as string)
+    );
+    setFileList(newFiles as any);
+  }
+
   return (
     <div className='grid grid-cols-[auto,1fr] w-full z-50'>
-      <div className='py-16 px-8 bg-gray-50 flex flex-col gap-y-4'>
+      <div className='py-16 px-8 bg-gray-50 shadow-md shadow-slate-300 flex flex-col gap-y-4'>
         {/* Open the modal using document.getElementById('ID').showModal() method */}
+
         <button
           className='text-center rounded-full w-8 h-8 bg-slate-600 flex items-center justify-center mx-auto pb-1 cursor-pointer'
           onClick={() => document.getElementById('my_modal_1')?.showModal()}
@@ -92,11 +102,24 @@ export default function FileList({
             </div>
           </div>
         </dialog>
+        <form>
+          <input
+            type='text'
+            ref={searchRef}
+            placeholder='Search...'
+            autoComplete='off'
+            className='py-2 px-3 border border-orange-600 rounded-md w-full max-w-xs'
+            onChange={handleChange}
+          />
+        </form>
         {/* <button className='text-center rounded-full w-8 h-8 bg-orange-600 flex items-center justify-center mx-auto pb-1 cursor-pointer'>
           <p className='text-3xl text-white'>+</p>
         </button>*/}
         {fileList.map((file) => (
-          <div key={file.id} className='flex items-center gap-x-2'>
+          <div
+            key={file.id}
+            className='flex items-center justify-center gap-x-2'
+          >
             <button
               className='text-orange-600 font-bold'
               onClick={() => getData(file?.name ?? '')}

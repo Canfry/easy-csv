@@ -28,7 +28,7 @@ export default function FileList({
       }
     );
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     setHeaders(data.headers);
     setFileData(data.data);
   }

@@ -1,54 +1,33 @@
-# Astro Starter Kit: Basics
+# EASY CSV
+
+An Application where you can visualize your csv files easily.
+
+After cloning the project just run
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+The project uses Astro V4. More info [here](https://docs.astro.build)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack used
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+1. Xata database https://xata.io/. You will have to set up your own API KEY.
+   Schemas:
 
-## 🚀 Project Structure
+- Users: id(string), name(string not null), email(email, not null), password(string not null)
+- Files: id(string), file(file), name(string), link(link to users table)
 
-Inside of your Astro project, you'll see the following folders and files:
+2. Tailwindcss and some components from DaisyUI
+3. Check the astro.config.mjs file regarding integrations and other features(server output, adapters...)
+4. Packages installed: bcryptjs for password hash, astro-icon and react-icons, csv-string to read the csv files, DaisyUI as dev dependency for styled components.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Before you start
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Make sure to replace the urls with your development one in /components/FileList.tsx.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## API folder
 
-Any static assets, like images, can be placed in the `public/` directory.
+I Created 2 endpoints, one to get the content from the csv file and the other one to delete a file. I've used React component to be able to deal with click event as Astro is set to server output.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The comments checking for data are commented. Feel free to uncomment them to see how the data looks.

@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Easy CSV',
+  description = 'A web application to visualize your CSV files',
+  image = `${Astro.site?.origin}/Image-by-pch.vector-on-Freepik.svg`,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang='en' data-theme='light'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content='Astro description' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' href='/Image-by-pch.vector-on-Freepik.svg' />
+    <meta name='generator' content={Astro.generator} />
+
+    <!-- Open Grpah Meta -->
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content={Astro.url} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:image' content={image} />
+    <meta property='og:image:alt' content={description} />
+
+    <!-- Twitter Meta -->
+    <meta property='twitter:card' content='summary_large_image' />
+    <meta property='twitter:url' content={Astro.url} />
+    <meta property='twitter:title' content={title} />
+    <meta property='twitter:description' content={description} />
+    <meta property='twitter:image' content={image} />
+    <meta property='twitter:image:alt' content={description} />
+
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+
+  <body class='min-h-screen grid grid-rows-[auto,1fr,auto] relative'>
+    <Image
+      src='/white-printing.jpg'
+      alt='background-image'
+      width={1024}
+      height={1024 / 2}
+      class='absolute top-0 left-0 w-full h-full object-cover opacity-5'
+    />
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>

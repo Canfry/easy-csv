@@ -1,0 +1,17 @@
+{
+  "id": "mig_cltfovlcvflhvetgu5u0",
+  "parentID": "mig_clpv8tn219e1p7sj4tlg",
+  "checksum": "1:eb29c5528d4080dce53e8608423ef8910c4c7f678c9bd500e4e1baaf93efdb66",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string",
+          "defaultValue": ""
+        },
+        "table": "files"
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "mig_clortad2mb7o3nl6cs40",
+  "parentID": "mig_clort18umj7tuupumod0",
+  "checksum": "1:239f0b4427a8cc74feb3fe21de77567b40dbdfd64008abc32164866fd55e34d4",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "user",
+          "type": "link",
+          "link": {
+            "table": "users"
+          },
+          "unique": true
+        },
+        "table": "files"
+      }
+    }
+  ]
+}

@@ -43,7 +43,11 @@ if (Astro.request.method === 'POST') {
 <Layout title='Sign In'>
   <div class='grow flex flex-col items-center justify-center relative h-full'>
     <h1 class='text-5xl text-slate-600 uppercase text bold'>Sign In</h1>
-    <form class='py-8 px-8 max-w-70% mx-auto' method='POST'>
+    <form
+      class='py-8 px-8 max-w-70% mx-auto'
+      method='POST'
+      action=`${import.meta.env.URL}/signin`
+    >
       <div class='flex flex-col items-start'>
         <label for='email' class='text-slate-600 text-xl'> Email:</label>
         <input

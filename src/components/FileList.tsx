@@ -20,7 +20,7 @@ export default function FileList({
 
   async function getData(fileName: string) {
     const response = await fetch(
-      `http://localhost:4321/api/content/${fileName}`,
+      `${import.meta.env.URL}/api/content/${fileName}`,
       {
         headers: {
           'Content-Type': 'application/text',

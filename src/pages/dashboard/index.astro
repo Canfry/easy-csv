@@ -30,7 +30,7 @@ type Props = {
         <form
           class='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6'
           method='POST'
-          action='/api/upload'
+          action=`${import.meta.env.URL}/api/upload`
           enctype='multipart/form-data'
         >
           <input

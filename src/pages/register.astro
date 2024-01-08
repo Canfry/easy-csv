@@ -57,7 +57,11 @@ if (Astro.request.method === 'POST') {
     <p class='text-red-800 text-xl mb-4 h-5 text-center'>
       {errors.credentials}
     </p>
-    <form class='py-8 px-8 max-w-70% mx-auto' method='POST'>
+    <form
+      class='py-8 px-8 max-w-70% mx-auto'
+      method='POST'
+      action=`${import.meta.env.URL}/register`
+    >
       <div class='flex flex-col items-start'>
         <label for='name' class='text-slate-600 text-xl'> Name:</label>
         <input

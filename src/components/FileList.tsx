@@ -3,7 +3,7 @@ import type Data from '../pages/dashboard/index.astro';
 import type { FilesRecord } from '../xata';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IoTrashSharp } from 'react-icons/io5';
+// import { IoTrashSharp } from 'react-icons/io5';
 
 export default function FileList({
   files,
@@ -127,7 +127,7 @@ export default function FileList({
               {file.name}
             </button>
             <button onClick={() => deleteFile(file.id)}>
-              <IoTrashSharp className='text-slate-600 cursor-pointer' />
+              {/*<IoTrashSharp className='text-slate-600 cursor-pointer' />*/}
             </button>
           </div>
         ))}

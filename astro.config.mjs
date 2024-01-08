@@ -10,7 +10,9 @@ export default defineConfig({
   output: 'server',
   adapter: netlify(),
   prefetch: false,
-  ssr: {
-    noExternal: ['react-icons'],
+  vite: {
+    ssr: {
+      noExternal: ['react-icons'],
+    },
   },
 });

@@ -4,7 +4,7 @@ import { XataFile } from '@xata.io/client';
 
 const errors: Record<string, string> = {};
 
-export const POST: APIRoute = async ({ redirect, cookies, request }): Response | Promise<Response> => {
+export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Response> => {
   const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
   const userId = cookies.get('userId');
   const data = await request.formData();

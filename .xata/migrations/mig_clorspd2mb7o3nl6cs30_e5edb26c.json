@@ -1,0 +1,18 @@
+{
+  "id": "mig_clorspd2mb7o3nl6cs30",
+  "parentID": "mig_clorsjgumj7tuupumoc0",
+  "checksum": "1:e5edb26c808e9af2c4ad278e8f320413fb574eb39a56bf9189667934107600fa",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string",
+          "notNull": true,
+          "defaultValue": ""
+        },
+        "table": "files"
+      }
+    }
+  ]
+}

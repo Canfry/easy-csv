@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
         file: XataFile.fromBase64(record),
       })
     }
-  } catch (error: string) {
+  } catch (error: any) {
     throw new Error({message: error.message});
   }
 

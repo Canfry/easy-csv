@@ -16,6 +16,7 @@ export default function FileList({
   const [fileData, setFileData] = useState<(typeof Data)[]>([]);
   const [fileList, setFileList] = useState(files ?? []);
   const searchRef = useRef<HTMLInputElement>(null);
+  const myModal = useRef<HTMLDialogelement>(null)
   const params = useParams();
 
   const { fileName } = params as { fileName: string };
@@ -64,11 +65,11 @@ export default function FileList({
 
         <button
           className='text-center rounded-full w-8 h-8 bg-slate-600 flex items-center justify-center mx-auto pb-1 cursor-pointer'
-          onClick={() => document.getElementById('my_modal_1')?.showModal()}
+          onClick={() => myModal.current?.showModal()}
         >
           <p className='text-3xl text-white'>+</p>
         </button>
-        <dialog id='my_modal_1' className='modal'>
+        <dialog id='my_modal_1' className='modal' ref={myModal}>
           <div className='modal-box'>
             <h3 className='font-bold text-lg'>Upload file!!</h3>
             <p className='py-4'>

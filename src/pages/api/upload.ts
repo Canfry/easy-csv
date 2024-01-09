@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
   // console.log(fileToUpload);
   
   try {
-   if(!fileUpload) {
+   if(!fileToUpload) {
       errors.file = "File is required"
     } else {
       const record = Buffer.from(await fileToUpload.arrayBuffer()).toString('base64');

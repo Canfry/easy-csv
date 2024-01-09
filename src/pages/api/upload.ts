@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
       })
     }
   } catch (error) {
-    throw new Error(error);
+    throw new Error({message: error.message});
   }
 
   return redirect('/dashboard')

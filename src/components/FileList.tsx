@@ -16,7 +16,7 @@ export default function FileList({
   const [fileData, setFileData] = useState<(typeof Data)[]>([]);
   const [fileList, setFileList] = useState(files ?? []);
   const searchRef = useRef<HTMLInputElement>(null);
-  const myModal = useRef<HTMLDialogelement>(null)
+  const myModal = useRef<HTMLDialogElement>(null)
   const params = useParams();
 
   const { fileName } = params as { fileName: string };

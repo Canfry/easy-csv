@@ -13,27 +13,30 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
 
   // console.log(fileToUpload);
   
+
   try {
-   if(!fileToUpload) {
+    if(!fileToUpload) {
       errors.file = "File is required"
     } else {
       const record = Buffer.from(await fileToUpload.arrayBuffer()).toString('base64');
       await xata.db.files.create({
-        name: fileName,
-        user: userId?.value,
-        file: XataFile.fromBase64(record),
+      name: fileName,
+      user: userId?.value,
+      file: XataFile.fromBase64(record),
       })
       return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
-  } finally {
-    await xata.close();
+  }finally {
+    return redirect('/dashboard')
   }
 
-  return redirect('/dashboard')
 };
+
+

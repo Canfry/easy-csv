@@ -16,7 +16,7 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
 
   try {
     if(!fileToUpload) {
-      errors.file = "File is required"
+      throw new Error("File is required")
     } else {
       const record = Buffer.from(await fileToUpload.arrayBuffer()).toString('base64');
       await xata.db.files.create({
@@ -32,7 +32,6 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
       }
     }
   } catch (error) {
-    throw new Error('Something went wrong')
     let message = 'Unknown error';
     if(error instanceof Error) {
       message = error.message;

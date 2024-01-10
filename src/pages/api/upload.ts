@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
       })
     }
   } catch (error: any) {
-    throw new Error({message: error.message});
+    return new Response(error.message, { status: 404, statusText: 'Not Found' });  
   }
 
   return redirect('/dashboard')

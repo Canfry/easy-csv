@@ -30,7 +30,9 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
       },
     }
   } catch (error: any) {
-    throw new Error({message: error.message});
+    console.error(error);
+  } finally {
+    await xata.close();
   }
 
   return redirect('/dashboard')

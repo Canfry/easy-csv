@@ -32,7 +32,10 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
       }
     }
   } catch (error) {
-    throw new Error(error.message);
+    let message = 'Unknown error';
+    if(error instanceof Error) {
+      message = error.message;
+    }
   }
   return redirect('/dashboard')
 };

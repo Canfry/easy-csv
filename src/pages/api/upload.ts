@@ -24,8 +24,8 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
         file: XataFile.fromBase64(record),
       })
     }
-  } catch (error: any) {
-    return new Response(error.message, { status: 404, statusText: 'Not Found' });  
+  } catch (error) {
+    return new Response(null, { status: 404, statusText: 'Not Found' });  
   }
 
   return redirect('/dashboard')

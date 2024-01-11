@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { XataClient } from '../../xata';
 import { XataFile } from '@xata.io/client';
 
-const errors: Record<string, string> = {};
+/* const errors: Record<string, string> = {}; */
 
 export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Response> => {
   const xata = new XataClient({ apiKey: import.meta.env.XATA_API_KEY });
@@ -33,7 +33,7 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
     }
 
   }catch (error) {
-    let message = 'Unknown error';
+    let message;
     if(error instanceof Error) {
       message = error.message;
     }

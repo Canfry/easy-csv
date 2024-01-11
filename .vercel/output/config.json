@@ -1,0 +1,51 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/dashboard\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/register\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/logout\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/signin\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/content\\/([^/]+?)\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/delete\\/([^/]+?)\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/upload\\/?$",
+			"dest": "render"
+		}
+	]
+}

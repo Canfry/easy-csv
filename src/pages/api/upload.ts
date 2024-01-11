@@ -20,18 +20,19 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
     } else {
       const record = Buffer.from(await fileToUpload.arrayBuffer()).toString('base64');
       await xata.db.files.create({
-      name: fileName,
-      user: userId?.value,
-      file: XataFile.fromBase64(record),
+        name: fileName,
+        user: userId?.value,
+        file: XataFile.fromBase64(record),
       })
       return new Response(JSON.stringify({ success: true }), {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
         },
-      }
+      })
     }
-  } catch (error) {
+
+  }catch (error) {
     let message = 'Unknown error';
     if(error instanceof Error) {
       message = error.message;

@@ -76,7 +76,7 @@ export default function FileList({
           <div className='modal-box'>
             <h3 className='font-bold text-lg'>Upload file!!</h3>
             <p className='py-4'>
-              Press ESC key or click the button below to close
+              Press ESC key to close
             </p>
             <form
               className='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6 my-4'

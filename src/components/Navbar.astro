@@ -47,10 +47,11 @@ const user = Astro.cookies.get('userName');
       )
     }
   </ul>
-  <div class='hidden max-md:dropdown max-md:dropdown-left max-md:block z-[100]'>
+  <div class='hidden max-md:dropdown max-md:dropdown-left max-md:block'>
     <div
       role='button'
-      class='btn m-1 text-slate-700 bg-transparent border-none hover:text-orange-600 hover:bg-transparent'
+      tabindex={0}
+      class='btn m-1 text-slate-700 bg-transparent border-none hover:text-orange-600 hover:bg-transparent visible opacity-100'
     >
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -67,7 +68,7 @@ const user = Astro.cookies.get('userName');
       user?.value ? (
         <ul
           tabindex={0}
-          class='dropdown-content z-[150] menu p-2 text-lg shadow bg-base-100 rounded-box w-52 max-md:block'
+          class='dropdown-content z-[5] menu p-2 text-lg shadow bg-base-100 rounded-box w-52 visible opacity-100'
         >
           <li>
             <a href='/logout' class='text-black'>Sign Out</a>
@@ -76,7 +77,7 @@ const user = Astro.cookies.get('userName');
       ) : (
         <ul
           tabindex={0}
-          class='dropdown-content z-[1] menu p-2 text-lg shadow shadow-orange-100 bg-base-100 rounded-box w-52'
+          class='dropdown-content z-[1] menu p-2 text-lg shadow shadow-orange-100 bg-base-100 rounded-box w-52 visible opacity-100'
         >
           <li>
             <a href='/signin'>Sign In</a>

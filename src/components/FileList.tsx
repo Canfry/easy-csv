@@ -26,7 +26,7 @@ export default function FileList({
 
   async function getData(fileName: string) {
     const response = await fetch(
-      `http://localhost:4321/api/content/${fileName}`,
+      `${import.meta.env.BASE_URL}/api/content/${fileName}`,
       {
         headers: {
           'Content-Type': 'application/text',
@@ -45,7 +45,7 @@ export default function FileList({
   }, [fileList]);
 
   async function deleteFile(id: string) {
-    const res = await fetch(`http://localhost:4321/api/delete/${id}`, {
+    const res = await fetch(`${import.meta.env.BASE_URL}/api/delete/${id}`, {
       method: 'DELETE',
     });
     const data = await res.json();

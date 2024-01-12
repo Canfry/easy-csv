@@ -18,6 +18,7 @@ export default function FileList({
   const [headers, setHeaders] = useState<string[]>([]);
   const [fileData, setFileData] = useState<Data[]>([]);
   const [fileList, setFileList] = useState(files ?? []);
+  const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const myModal = useRef<HTMLDialogElement>(null)
   const params = useParams();
@@ -25,6 +26,7 @@ export default function FileList({
   const { fileName } = params as { fileName: string };
 
   async function getData(fileName: string) {
+    setIsLoading(true);
     const response = await fetch(
       `${import.meta.env.BASE_URL}api/content/${fileName}`
       // {
@@ -37,6 +39,7 @@ export default function FileList({
     // console.log(data);
     setHeaders(data.headers);
     setFileData(data.data);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -139,6 +142,14 @@ export default function FileList({
         ))}
       </div>
       <div className='overflow-x-scroll w-full'>
+        {isLoading && (
+          <div className='flex items-center justify-center h-96'>
+            <span className="loading loading-ring loading-xs"></span>
+            <span className="loading loading-ring loading-sm"></span>
+            <span className="loading loading-ring loading-md"></span>
+            <span className="loading loading-ring loading-lg"></span>
+          </div>
+        )}
         <table className='table w-full'>
           {/* head */}
           <thead className='text-xl'>

@@ -1,11 +1,14 @@
 import type { RecordArray, SelectedPick } from '@xata.io/client';
-import type Data from '../pages/dashboard/index.astro';
+/* import type Data from '../pages/dashboard/index.astro'; */
 import type { FilesRecord } from '../xata';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 // import { IoTrashSharp } from 'react-icons/io5';
 
-// Making some test for git
+type Data = {
+  headers: string[];
+  data: { [k: string]: string }[];
+};
 
 export default function FileList({
   files,
@@ -13,7 +16,7 @@ export default function FileList({
   files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>;
 }) {
   const [headers, setHeaders] = useState<string[]>([]);
-  const [fileData, setFileData] = useState<(typeof Data)[]>([]);
+  const [fileData, setFileData] = useState<Data[]>([]);
   const [fileList, setFileList] = useState(files ?? []);
   const searchRef = useRef<HTMLInputElement>(null);
   const myModal = useRef<HTMLDialogElement>(null)
@@ -149,7 +152,7 @@ export default function FileList({
             {fileData.map((row, index) => (
               <tr key={index} className='hover'>
                 {Object.values(row).map((data, index) => (
-                  <td key={index}>{data}</td>
+                  <td key={index}>{data as string[]}</td>
                 ))}
               </tr>
             ))}

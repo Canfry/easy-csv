@@ -67,10 +67,10 @@ const user = Astro.cookies.get('userName');
       user?.value ? (
         <ul
           tabindex={0}
-          class='dropdown-content z-[150] menu p-2 text-lg shadow bg-base-100 rounded-box w-52'
+          class='dropdown-content z-[150] menu p-2 text-lg shadow bg-base-100 rounded-box w-52 max-md:block'
         >
           <li>
-            <a href='/logout'>Sign Out</a>
+            <a href='/logout' class='text-black'>Sign Out</a>
           </li>
         </ul>
       ) : (

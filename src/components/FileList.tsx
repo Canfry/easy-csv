@@ -26,12 +26,12 @@ export default function FileList({
 
   async function getData(fileName: string) {
     const response = await fetch(
-      `${import.meta.env.BASE_URL}/api/content/${fileName}`,
-      {
-        headers: {
-          'Content-Type': 'application/text',
-        },
-      }
+      `${import.meta.env.BASE_URL}/api/content/${fileName}`
+      // {
+      //   headers: {
+      //     'Content-Type': 'application/text',
+      //   },
+      // }
     );
     const data = await response.json();
     // console.log(data);

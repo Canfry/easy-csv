@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { IoTrashSharp } from 'react-icons/io5';
 
-export default function ProfilefileList({files,
+export default function ProfilefileList({files
 }: {
   files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>;
 }){
@@ -34,9 +34,9 @@ export default function ProfilefileList({files,
         )}
       <h1 className='text-3xl text-slate-700 mb-8'>Your list of files:</h1>
       <ul>
-        {fileList.map((file: any) => (
-          <div className='flex items-center gap-x-4'>
-            <li key={file.id}>
+        {fileList.map((file) => (
+          <div key={file.id} className='flex items-center gap-x-4'>
+            <li>
               <a href={`/file/${file.id}`} className='text-orange-600 text-xl font-bold'>{file.name}</a>
             </li>
             <button onClick={() => deleteFile(file.id)}>

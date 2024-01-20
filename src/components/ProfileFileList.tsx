@@ -24,15 +24,20 @@ export default function ProfilefileList({files
   }
   return (
     <>
-      {isLoading && (
-          <div className='flex items-center justify-center h-96'>
+      {isLoading ? (
+          <div className='flex items-center justify-center h-32'>
             <span className="loading loading-ring loading-xs"></span>
             <span className="loading loading-ring loading-sm"></span>
             <span className="loading loading-ring loading-md"></span>
             <span className="loading loading-ring loading-lg"></span>
           </div>
+        ) : (
+          <div className='h-32'></div>
         )}
       <h1 className='text-3xl text-slate-700 mb-8'>Your list of files:</h1>
+      {fileList.length === 0 ? (
+      <p className='text-slate-700 text-xl'>You have no files.</p>
+      ) : (
       <ul>
         {fileList.map((file) => (
           <div key={file.id} className='flex items-center gap-x-4'>
@@ -44,8 +49,13 @@ export default function ProfilefileList({files
             </button>
           </div>
         ))}
-
       </ul>
+      )}
+      
+      <hr className='my-8 h-1 bg-slate-700' />
+      <h1 className='text-3xl text-slate-700 mb-4'>Delete your account:</h1>
+      <p className='text-slate-700 text-xl'><span className='text-orange-600 font-bold text-xl'>Warning: </span>This will delete your account, but not your files. Be sure to delete all your files (clicking on the bin next to each file) before deleting your account. This action is irreversible.</p>
+      <button className='w-[40%] rounded-md py-1 px-3 bg-red-600 text-white mt-4 text-xl uppercase'>Delete account</button>
     </>
   )
 }

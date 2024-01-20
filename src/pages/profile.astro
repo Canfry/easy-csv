@@ -12,7 +12,6 @@ if (!user){
 }
 
 const files = await xata.db.files.filter({'user.id': user.value}).getMany();
-console.log(files)
 
 ---
 

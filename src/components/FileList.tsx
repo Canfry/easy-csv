@@ -54,6 +54,7 @@ export default function FileList({
     const data = await res.json();
     const newFiles = files.filter((file) => file.id !== data.id);
     setFileList(newFiles as any);
+    getData(newFiles[0]?.name ?? '');
   }
 
   function handleChange() {

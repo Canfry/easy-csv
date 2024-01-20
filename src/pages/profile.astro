@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { XataClient } from '../xata.ts';
+import ProfileFileList from '../components/ProfileFileList.tsx';
+
+const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY});
+
+const user = Astro.cookies.get('userId');
+if (!user){
+  Astro.redirect('/');
+}
+
+const files = await xata.db.files.filter({'user.id': user.value}).getMany();
+console.log(files)
+
+---
+
+<Layout title='Profile'>
+  <main class='flex flex-col justify-center items-left h-full max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto'
+>
+    <ProfileFileList client:load files={files} />
+  </main>
+</Layout>
+

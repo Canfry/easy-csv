@@ -1,5 +1,8 @@
 ---
+import Avatar from '../components/Avatar.tsx';
+
 const user = Astro.cookies.get('userName');
+const userId = user.value;
 ---
 
 <nav
@@ -15,7 +18,8 @@ const user = Astro.cookies.get('userName');
   <ul class='flex items-center gap-x-8 max-md:hidden'>
     {
       user?.value ? (
-        <>
+        <div class='flex items-center gap-x-4 '>
+          <Avatar userId={userId}/> 
           <p class='max-md:hidden'>
             Hi{' '}
             <span class='text-slate-700 font-bold'>
@@ -28,7 +32,7 @@ const user = Astro.cookies.get('userName');
           >
             Sign Out
           </a>
-        </>
+        </div>
       ) : (
         <>
           <a
@@ -71,7 +75,10 @@ const user = Astro.cookies.get('userName');
           class='dropdown-content z-[5] menu p-2 text-lg shadow bg-base-100 rounded-box w-52 visible opacity-100'
         >
           <li>
-            <a href='/logout' class='text-black'>Sign Out</a>
+            <a href='/logout' class='text-slate-700'>Sign Out</a>
+          </li>
+          <li>
+            <a href='/profile' class='text-slate-700'>Porfile</a>
           </li>
         </ul>
       ) : (

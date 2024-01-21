@@ -43,6 +43,9 @@ if (Astro.request.method === 'POST') {
 <Layout title='Sign In'>
   <div class='grow flex flex-col items-center justify-center relative h-full'>
     <h1 class='text-5xl text-slate-600 uppercase text bold'>Sign In</h1>
+    <p class='text-red-600 text-xl mb-4 h-5 text-center'>
+      {errors.credentials}
+    </p>
     <form
       class='py-8 px-8 max-w-70% mx-auto'
       method='POST'

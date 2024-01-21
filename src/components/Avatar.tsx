@@ -1,12 +1,12 @@
-export default function Avatar({userId}: {userId: string}){
+export default function Avatar({user}: {user: string}){
   return (
     <>
       <div className="dropdown dropdown-bottom dropdown-end bg-transparent">
         <div tabIndex={0} role="button" className="btn m-1">
           <button className='cursor-pointer max-md:hidden'>
             <div className="avatar placeholder">
-              <div className="text-orange-600 text-xl w-full">
-                <span>{userId.split(' ')[0][0].toUpperCase()}</span>
+              <div className="text-orange-600 text-xl font-bold w-full">
+                <span>{user.split(' ')[0][0].toUpperCase()}</span>
               </div>
             </div>
           </button>

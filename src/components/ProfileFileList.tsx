@@ -4,13 +4,20 @@ import { useState } from 'react';
 
 import { IoTrashSharp } from 'react-icons/io5';
 
-export default function ProfilefileList({files
+export default function ProfilefileList({files, userId
 }: {
-  files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>;
+  files: RecordArray<Readonly<SelectedPick<FilesRecord, ['*']>>>; userId: string;
 }){
   const [fileList, setFileList] = useState(files ?? []);
   const [isLoading, setIsLoading] = useState(false);
 
+  async function deleteUser(id: string){
+    await fetch(`${import.meta.env.BASE_URL}api/deleteUser/${id}`, {
+    method: 'DELETE',
+    });
+
+    window.location.href = `${import.meta.env.BASE_URL}`;
+  }
 
   async function deleteFile(id: string) {
     setIsLoading(true);
@@ -55,7 +62,7 @@ export default function ProfilefileList({files
       <hr className='my-8 h-1 bg-slate-700' />
       <h1 className='text-3xl text-slate-700 mb-4'>Delete your account:</h1>
       <p className='text-slate-700 text-xl'><span className='text-orange-600 font-bold text-xl'>Warning: </span>This will delete your account, but not your files. Be sure to delete all your files (clicking on the bin next to each file) before deleting your account. This action is irreversible.</p>
-      <button className='w-[40%] rounded-md py-1 px-3 bg-red-600 text-white mt-4 text-xl uppercase'>Delete account</button>
+      <button onClick={() => deleteUser(userId)} className='w-[40%] rounded-md font-bold py-2 px-3 bg-red-600 text-white mt-4 text-xl max-md:text-sm uppercase'>Delete account</button>
     </>
   )
 }

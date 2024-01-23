@@ -11,12 +11,16 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
   const fileToUpload = data.get('file') as File;
   const fileName = fileToUpload.name;
 
-  // console.log(fileToUpload);
+  console.log(fileToUpload);
   
 
   /* try { */
     if(!fileToUpload) {
       throw new Error("File is required")
+    }
+
+    if(fileToUpload.name.split('.').pop() !== 'csv'){
+    return redirect('/errorExtension')
     } else {
       const record = Buffer.from(await fileToUpload.arrayBuffer()).toString('base64');
       await xata.db.files.create({

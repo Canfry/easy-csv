@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ redirect, cookies, request }): Promise<Re
   const fileToUpload = data.get('file') as File;
   const fileName = fileToUpload.name;
 
-  console.log(fileToUpload);
+  /* console.log(fileToUpload); */
   
 
   /* try { */

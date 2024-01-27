@@ -143,33 +143,34 @@ export default function FileList({
         ))}
       </div>
       <div className='overflow-x-scroll w-full'>
-        {isLoading && (
+        {isLoading ? (
           <div className='flex items-center justify-center h-96'>
             <span className="loading loading-ring loading-xs"></span>
             <span className="loading loading-ring loading-sm"></span>
             <span className="loading loading-ring loading-md"></span>
             <span className="loading loading-ring loading-lg"></span>
           </div>
-        )}
-        <table className='table w-full'>
+        ) : (
+          <table className='table w-full'>
           {/* head */}
-          <thead className='text-xl'>
-            <tr>
-              {headers.map((header, index) => (
-                <th key={index}>{header}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {fileData.map((row, index) => (
-              <tr key={index} className='hover'>
-                {Object.values(row).map((data, index) => (
-                  <td key={index}>{data as string[]}</td>
+            <thead className='text-xl'>
+              <tr>
+                {headers.map((header, index) => (
+                  <th key={index}>{header}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {fileData.map((row, index) => (
+                <tr key={index} className='hover'>
+                  {Object.values(row).map((data, index) => (
+                    <td key={index}>{data as string[]}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ export default function ProfilefileList({files, userId
       
       <hr className='my-8 h-1 bg-slate-700' />
       <h1 className='text-3xl text-slate-700 mb-4'>Delete your account:</h1>
-      <p className='text-slate-700 text-xl'><span className='text-orange-600 font-bold text-xl'>Warning: </span>This will delete your account, but not your files. Be sure to delete all your files (clicking on the bin next to each file) before deleting your account. This action is irreversible.</p>
+      <p className='text-slate-700 text-xl'><span className='text-orange-600 font-bold text-xl'>Warning: </span>This will delete your account, but not your files. <strong>Be sure to delete all your files </strong>(clicking on the bin next to each file) before deleting your account. <strong>This action is irreversible.</strong></p>
       <button onClick={() => deleteUser(userId)} className='w-[40%] rounded-md font-bold py-2 px-3 bg-red-600 text-white mt-4 text-xl max-md:text-sm uppercase'>Delete account</button>
     </>
   )

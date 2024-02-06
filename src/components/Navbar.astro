@@ -19,7 +19,7 @@ const userName = user?.value;
     {
       user?.value ? (
         <div class='flex items-center gap-x-4 '>
-          <Avatar user={userName}/> 
+          <Avatar user={userName as string}/> 
           <p class='max-md:hidden'>
             Hi{' '}
             <span class='text-slate-700 font-bold'>

@@ -23,10 +23,13 @@ type Props = {
   {
     files.length === 0 ? (
       <div class='max-lg:px-24 px-48 z-20 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl w-full mx-auto flex flex-col gap-y-10 items-center justify-center'>
+		<div>
         <h1 class='text-center text-3xl text-slate-700'>
           It seems you didn't upload any files yet.{' '}
           <span class='text-orange-600'>Let's start!!</span>
         </h1>
+		<p>Your file <span class="font-bold">must have</span> the extension ".csv"</p>
+		</div>
         <form
           class='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6'
           method='POST'
@@ -37,6 +40,7 @@ type Props = {
             type='file'
             name='file'
             id='file'
+			accept=".csv"
             required
             class='file-input file-input-bordered border-orange-600 file-input-[orange-600] w-full max-w-xs'
           />

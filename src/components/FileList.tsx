@@ -80,8 +80,10 @@ export default function FileList({
           <div className='modal-box'>
             <h3 className='font-bold text-lg'>Upload file!!</h3>
             <p className='py-4'>
-              Press ESC key to close
+              Press <span className='font-bold'>ESC</span> key to close
             </p>
+			<p>Your file <span className="font-bold">must have</span> the extension ".csv"</p>
+
             <form
               className='flex items-center gap-x-6 max-md:flex-col max-md:gap-y-6 my-4'
               method='POST'
@@ -92,6 +94,7 @@ export default function FileList({
                 type='file'
                 name='file'
                 id='file'
+				accept='.csv'
                 required
                 className='file-input file-input-bordered border-orange-600 file-input-[orange-600] w-full max-w-xs my-4'
               />
